@@ -38,7 +38,6 @@ def add_pw(base_pw, cmd, pwlist):
 
 def derive(base_pw, target, pwlist):
     for p in pwlist:
-        print p["target"]
         if p["target"] == target:
             h = my_script(base_pw, target, p["size"])
             return h
@@ -61,12 +60,12 @@ def main():
     while True:
         try:
             r = sys.stdin.readline()
-            ret = re.match("^derive (.*)$", r)
+            ret = re.match("^derive\s+(.*)$", r)
             if ret:
                 h = derive(pw, ret.group(1), d)
                 print h.encode("hex")
 
-            if re.match("^add\s+(.*) (\d+)( .*)?$", r):
+            if re.match("^add\s+(.*)\s+(\d+)( .*)?$", r):
                 ret = add_pw(pw, r, d)
 
             if r.startswith("list"):
